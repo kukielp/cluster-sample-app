@@ -1,11 +1,11 @@
 ### Our base image
-FROM amazonlinux
+FROM public.ecr.aws/amazonlinux/amazonlinux:2022.0.20220531.0
 
 ### Update our image
 RUN yum update -y
 
 ### Install tar & gzip
-RUN yum install -y tar gzip shadow-utils
+RUN yum install -y tar gzip shadow-utils && yum clean all
 
 ### Install NVM
 RUN mkdir /usr/local/nvm
@@ -25,8 +25,12 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 # Add app port
 ENV CLUSTER_SAMPLE_APP_PORT 8080
 
+
+
 #### Create dedicated user
 RUN useradd -ms /bin/bash user
+RUN mkdir /usr/src/app
+RUN chown -Rh user:user /usr/src/app
 USER user
 
 #### Create app directory
