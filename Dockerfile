@@ -5,7 +5,7 @@ FROM public.ecr.aws/amazonlinux/amazonlinux:2022.0.20220531.0
 RUN yum update -y
 
 ### Install tar & gzip
-RUN yum install -y tar gzip shadow-utils && yum clean all
+#RUN yum install -y tar gzip shadow-utils && yum clean all
 
 ### Install NVM
 RUN mkdir /usr/local/nvm
